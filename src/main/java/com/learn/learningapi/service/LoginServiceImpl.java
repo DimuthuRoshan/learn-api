@@ -4,8 +4,10 @@ import com.learn.learningapi.CustomExceptions.CommonExceptions;
 import com.learn.learningapi.model.LoginRequest;
 import com.learn.learningapi.model.LoginResponse;
 import com.learn.learningapi.model.User;
+import com.learn.learningapi.repository.UserRepository;
 import com.learn.learningapi.util.PasswordVerifyUtil;
 import com.learn.learningapi.util.UserSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ import java.util.Base64;
 @Service
 public class LoginServiceImpl implements LoginService {
 
+    @Autowired
+    private UserRepository userRepository;
     private UserSession userSession = new UserSession ();
     private PasswordVerifyUtil passwordVerifyUtil = new PasswordVerifyUtil ();
     @Override
@@ -106,5 +110,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public void userCreate ( User user ) throws HttpMessageNotReadableException {
         System.out.println ( "nnnnnn" );
+        User newUser = userRepository.save(user);
+        System.out.println ( "User created" + user.getUser_id() );
     }
 }

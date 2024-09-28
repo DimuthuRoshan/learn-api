@@ -20,6 +20,7 @@ public class LogFilter implements Filter {
             FilterChain filterChain ) throws IOException, ServletException {
 
         logger.info ( "Request from : " + servletRequest.getRemoteAddr () );
+
         filterChain.doFilter ( servletRequest,servletResponse );
     }
 }
